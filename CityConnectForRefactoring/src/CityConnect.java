@@ -58,7 +58,7 @@ public class CityConnect {
 
 	// This is used to indicate there is no suitable slot to store route
 	private static final int SLOT_UNAVAILABLE = -1;
-	
+
 	// This is used to indicate the route was not found in the database
 	private static final int NOT_FOUND = -2;
 
@@ -100,7 +100,7 @@ public class CityConnect {
 	public static void main(String[] args) {
 		showToUser(WELCOME_MESSAGE);
 		handleUserCommandAndRespond();
-		
+
 	}
 
 	/*
@@ -110,7 +110,7 @@ public class CityConnect {
 	 * that is referenced by the method above.
 	 * ====================================================================
 	 */
-	
+
 	/**
 	 * This high-level method handles user command and respond accordingly
 	 */
@@ -128,7 +128,7 @@ public class CityConnect {
 	}
 
 	public static String executeCommand(String userCommand) {
-		
+
 		String commandTypeString = getFirstWord(userCommand);
 
 		COMMAND_TYPE commandType = determineCommandType(commandTypeString);
@@ -179,7 +179,7 @@ public class CityConnect {
 		} else if (commandTypeString.equalsIgnoreCase("getdistance")) {
 			return COMMAND_TYPE.GET_DISTANCE;
 		} else if (commandTypeString.equalsIgnoreCase("exit")) {
-		 	return COMMAND_TYPE.EXIT;
+			return COMMAND_TYPE.EXIT;
 		} else {
 			return COMMAND_TYPE.INVALID;
 		}
@@ -216,7 +216,7 @@ public class CityConnect {
 		}
 
 	}
-	
+
 
 	/**
 	 * @return Returns the position of the route represented by 
@@ -249,32 +249,39 @@ public class CityConnect {
 	 * @return status of the operation
 	 */
 	private static String addRoute(String userCommand) {
-		
+
 		String[] parameters = splitParameters(removeFirstWord(userCommand));
-		
-		if (parameters.length < PARAM_SIZE_FOR_ADD_ROUTE){
+        
+		if (parameters.length < PARAM_SIZE_FOR_ADD_ROUTE){//wrong number of parameters in user command
 			return String.format(MESSAGE_INVALID_FORMAT, userCommand);
 		}
 
-		String newStartLocation = parameters[PARAM_POSITION_START_LOCATION];
-		String newEndLocation = parameters[PARAM_POSITION_END_LOCATION];
-		String distance = parameters[PARAM_POSITION_DISTANCE];
+		else {
+			String newStartLocation = parameters[PARAM_POSITION_START_LOCATION];
+			String newEndLocation = parameters[PARAM_POSITION_END_LOCATION];
+			String distance = parameters[PARAM_POSITION_DISTANCE];
 
-		if (!isPositiveNonZeroInt(distance)){
-			return String.format(MESSAGE_INVALID_FORMAT, userCommand);
+			if (!isPositiveNonZeroInt(distance)){//invalid route distance
+				return String.format(MESSAGE_INVALID_FORMAT, userCommand);
+			}
+
+			else if (noSlotAvailable(newStartLocation, newEndLocation)){//storage is full
+				return MESSAGE_NO_SPACE;
+			}
+
+			else {//valid input
+				int slotPosition = location(newStartLocation, newEndLocation);
+				addRouteAtPosition(newStartLocation, newEndLocation, distance,
+						slotPosition);
+				return String.format(MESSAGE_ADDED, newStartLocation, newEndLocation,
+						distance);
+			}
 		}
+	}
 
-		int slotPosition = location(newStartLocation, newEndLocation);
-
-		if (slotPosition == SLOT_UNAVAILABLE){
-			return MESSAGE_NO_SPACE;
-		}
-
-		addRouteAtPosition(newStartLocation, newEndLocation, distance,
-				slotPosition);
-
-		return String.format(MESSAGE_ADDED, newStartLocation, newEndLocation,
-				distance);
+	private static boolean noSlotAvailable(String startLocation, String endLocation) {
+		int slotPosition = location(startLocation, endLocation);
+		return (slotPosition == SLOT_UNAVAILABLE ? true : false);
 	}
 
 	private static void addRouteAtPosition(String newStartLocation,
@@ -291,7 +298,7 @@ public class CityConnect {
 	 */
 	private static int location(String newStartLocation,
 			String newEndLocation) {
-		
+
 		for (int i = 0; i < route.length; i++) {
 
 			String existingStartLocation = route[i][STORAGE_POSITION_START_LOCATION];
