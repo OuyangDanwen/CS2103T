@@ -111,6 +111,9 @@ public class CityConnect {
 	 * ====================================================================
 	 */
 	
+	/**
+	 * This high-level method handles user command and respond accordingly
+	 */
 	private static void handleUserCommandAndRespond() {
 		while (true) {
 			System.out.print("Enter command:");
@@ -213,6 +216,7 @@ public class CityConnect {
 		}
 
 	}
+	
 
 	/**
 	 * @return Returns the position of the route represented by 
