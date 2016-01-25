@@ -310,10 +310,10 @@ public class CityConnect {
 			String existingStartLocation = route[i][STORAGE_POSITION_START_LOCATION];
 			String existingEndLocation = route[i][STORAGE_POSITION_END_LOCATION];
 
-			if (existingStartLocation == null) { // empty slot
+			if (existingStartLocation == null) { // route not stored before, empty slot is found
 				return i;
 			} else if (sameRoute(existingStartLocation, existingEndLocation,
-					newStartLocation, newEndLocation)) {
+					newStartLocation, newEndLocation)) {//route already stored
 				return i;
 			}
 		}
