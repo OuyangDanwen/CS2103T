@@ -196,7 +196,7 @@ public class CityConnect {
 
 		String[] parameters = splitParameters(removeFirstWord(userCommand));
 
-		if (parameters.length < PARAM_SIZE_FOR_GET_DISTANCE) {
+		if (parameters.length < PARAM_SIZE_FOR_GET_DISTANCE) {//invalid command
 			return String.format(MESSAGE_INVALID_FORMAT, userCommand);
 		}
 
@@ -205,11 +205,11 @@ public class CityConnect {
 
 		int position = getPositionOfExistingRoute(newStartLocation, newEndLocation);
 
-		if (position == NOT_FOUND) {
+		if (position == NOT_FOUND) {//no route can be found
 			return String.format(MESSAGE_NO_ROUTE, newStartLocation,
 					newEndLocation);
 		} 
-		else 
+		else //a valid route is found
 		{
 			return String.format(MESSAGE_DISTANCE, newStartLocation, newEndLocation,
 					route[position][STORAGE_POSITION_DISTANCE]);
