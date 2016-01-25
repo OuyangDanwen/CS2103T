@@ -125,9 +125,7 @@ public class CityConnect {
 	}
 
 	public static String executeCommand(String userCommand) {
-		if (userCommand.trim().equals(""))
-			return String.format(MESSAGE_INVALID_FORMAT, userCommand);
-
+		
 		String commandTypeString = getFirstWord(userCommand);
 
 		COMMAND_TYPE commandType = determineCommandType(commandTypeString);
