@@ -278,7 +278,13 @@ public class CityConnect {
 			}
 		}
 	}
-
+    
+	/**
+	 * This operation checks whether there is storage available to add a new route
+	 * @param startLocation
+	 * @param endLocation
+	 * @return
+	 */
 	private static boolean noSlotAvailable(String startLocation, String endLocation) {
 		int slotPosition = location(startLocation, endLocation);
 		return (slotPosition == SLOT_UNAVAILABLE ? true : false);
