@@ -388,9 +388,10 @@ public class TextBuddy {
 		System.out.println(String.format(MESSAGE_FOR_SORTING_TEXT, fileName));
 	}
 
-	private static void sort(ArrayList<String> list) {
+	public static ArrayList<String> sort(ArrayList<String> list) {
 		Collections.sort(list, String.CASE_INSENSITIVE_ORDER);
-		updateFile(list);//sorted text must be written to file
+		//updateFile(list);//sorted text must be written to file
+		return list;
 	}
 
 	/**
