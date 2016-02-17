@@ -26,10 +26,7 @@ import java.util.Scanner;
  * 1. There is no specific "save" command in TextBuddy as automatic saving is done 
  * after every operation to prevent undesired loss of unsaved data due to unforeseen 
  * physical failure;
- * 2. A backup list is used to solely facilitate deletion operation which requires a 
- * rewriting of the text file with data from this list;
- * 3. All other operations except deletion are done on the text file directly.
- * 4. The lines of text in the text file are reordered after every deletion operation.
+ * 2. The lines of text in the text file are reordered after every deletion operation.
  * 
  * Additional Features: 
  * 1. TextBuddy re-prompts command from user instead of exiting the program immediately 
